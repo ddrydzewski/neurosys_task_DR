@@ -4,12 +4,17 @@ import { Form } from "react-bootstrap";
 import { IUserForm } from "../../types/IUserForm";
 import { checkIsSomethingInInput } from "../../utils/checkIsSomethingInInput";
 import { checkMinLengthInput } from "../../utils/checkMinLengthInput";
-import { ButtonStyled } from "../style";
+import Captcha from "../Captcha/Captcha";
 import {
-    FormContainer,
-    StyledTextField,
-    StyledTextFieldWrapper
+  FormContainer,
+  StyledTextField,
+  StyledTextFieldWrapper
 } from "./style";
+
+interface IProps {
+  checkFormInUse: (isUserUsed: boolean) => void;
+  checkIsComplete: (isComplete: boolean) => void;
+}
 
 const emptyForm: IUserForm = {
   fullName: "",
@@ -18,26 +23,22 @@ const emptyForm: IUserForm = {
   message: "",
 };
 
-interface IProps {
-  handleFormInUse: (isUserUsed: boolean) => void;
-}
-
-const FormInOffCanvas: React.FC<IProps> = ({ handleFormInUse }) => {
+const UserForm: React.FC<IProps> = ({ checkFormInUse, checkIsComplete }) => {
   const [userForm, setUserForm] = useState<IUserForm>(emptyForm);
-  const [isHuman, setIsHuman] = useState(false);
 
   useEffect(() => {
     if (checkIsSomethingInInput(userForm)) {
-      handleFormInUse(true);
+      checkFormInUse(true);
     } else {
-      handleFormInUse(false);
+      checkFormInUse(false);
     }
-  }, [handleFormInUse, userForm]);
+  }, [checkFormInUse, userForm]);
 
   const handleSubmitButton = () => {
     if (checkMinLengthInput(userForm)) {
-      console.log(userForm);
-      
+      setUserForm(emptyForm);
+      checkIsComplete(true);
+      checkFormInUse(false);
     } else {
       alert("Nie wszystkie pola są uzupełnione");
     }
@@ -50,10 +51,6 @@ const FormInOffCanvas: React.FC<IProps> = ({ handleFormInUse }) => {
     const target = e.value;
     setUserForm({ ...userForm, [e.originalEvent?.target.name]: target });
   };
-
-//   const captchaTest = () => {
-      
-//   }
 
   return (
     <FormContainer>
@@ -91,7 +88,7 @@ const FormInOffCanvas: React.FC<IProps> = ({ handleFormInUse }) => {
         </StyledTextFieldWrapper>
         <StyledTextFieldWrapper>
           <StyledTextField
-            maxLength={150}
+            maxLength={500}
             multiline
             type="text"
             name="message"
@@ -100,12 +97,10 @@ const FormInOffCanvas: React.FC<IProps> = ({ handleFormInUse }) => {
             label="Wiadomość"
           />
         </StyledTextFieldWrapper>
-        <ButtonStyled variant="primary" onClick={handleSubmitButton} disabled={!isHuman}>
-          Wyślij &#128512;
-        </ButtonStyled>
+        <Captcha handleSubmitButton={handleSubmitButton} />
       </Form>
     </FormContainer>
   );
 };
 
-export default FormInOffCanvas;
+export default UserForm;
