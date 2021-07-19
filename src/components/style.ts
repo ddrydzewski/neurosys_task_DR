@@ -1,7 +1,6 @@
-import { Button } from "react-bootstrap";
 import styled from "styled-components";
 
-export const ButtonStyled = styled(Button)`
+export const ButtonContainer = styled.div`
   margin: auto;
   text-align: center;
 `;
