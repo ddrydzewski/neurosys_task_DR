@@ -1,8 +1,12 @@
 import React from "react";
-import OffCanvasRight from "./OffCanvasRight/OffCanvasRight";
+import Contact from "./Contact/Contact";
 
 const Main = () => {
-  return <OffCanvasRight />;
+  return (
+    <>
+      <Contact />
+    </>
+  );
 };
 
 export default Main;
