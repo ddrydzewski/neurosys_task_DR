@@ -10,6 +10,14 @@ export const OffcanvasTitleStyled = styled(OffcanvasTitle)`
   color: ${colors.primeColor};
 `;
 
+export const ContactContainer = styled.div`
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  margin: auto;
+`;
+
 export const CompleteFormContainer = styled.div`
   position: absolute;
   margin: auto;

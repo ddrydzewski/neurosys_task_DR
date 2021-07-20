@@ -1,7 +1,7 @@
 export const colors = {
-  primeColor: "#2b7a78",
-  secondaryColor: "#feffff",
-  thirdColor: "#def2f1",
-  darkColor: "#17252a",
-  bonusColor: "#3aafa9",
+  primeColor: "#31708e",
+  secondaryColor: "#5085a5",
+  thirdColor: "#f7f9fb",
+  darkColor: "#687864",
+  bonusColor: "#8fc1e3",
 };

@@ -1,11 +1,12 @@
 import React from "react";
-import Contact from "./Contact/Contact";
+import { MainContainer } from "./style";
+import TopNavbar from "./TopNavbar/TopNavbar";
 
 const Main = () => {
   return (
-    <>
-      <Contact />
-    </>
+    <MainContainer>
+      <TopNavbar/>
+    </MainContainer>
   );
 };
 
