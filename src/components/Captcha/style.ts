@@ -9,3 +9,8 @@ export const UserControlContainer = styled.div`
   display: flex;
   margin-bottom: 10px;
 `;
+
+export const DinoImageContainer = styled.div`
+  margin: auto;
+  text-align: center;
+`;
