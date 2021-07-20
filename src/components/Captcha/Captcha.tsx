@@ -46,7 +46,7 @@ const Captcha: React.FC<IProps> = ({ handleSubmitButton }) => {
   return (
     <div>
       <ImageContainer>
-        <h4>Ustaw i zatwierdź w dobrej pozycji obrazek</h4>
+        <h4>Aby wysłać ustaw odpowiednio obrazek</h4>
         <Image
           src={SqadImage}
           rounded
@@ -62,7 +62,7 @@ const Captcha: React.FC<IProps> = ({ handleSubmitButton }) => {
       <UserControlContainer>
         <Button
           variant="outline-info"
-          style={{ marginRight: "10px" }}
+          style={{ marginRight: "5px" }}
           onClick={handleLeftRound}
         >
           <Icon name="KeyboardArrowLeft" />
