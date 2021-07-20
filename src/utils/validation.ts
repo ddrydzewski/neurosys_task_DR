@@ -23,3 +23,13 @@ export const isGoodPhoneNumber = (phone: string) => {
   }
   return result;
 };
+
+export const isGoodMessage = (message: string) => {
+  let result: boolean = true;
+
+  if (message.length < 5) {
+    result = false;
+  }
+  return result;
+
+}

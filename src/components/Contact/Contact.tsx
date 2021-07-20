@@ -49,8 +49,8 @@ const Contact = () => {
         <Modal open={isCompleteForm}>
           <ModalHeader title="Dziękujemy za wiadomość" label="&#128526;" />
           <ModalBody>
-            Twója wiadomość została przyjęta, postaramy się odpoweidzieć w
-            najbliższym czasie. Wiadomość zostanie wysłana na twojego e-maila.
+            Twoja wiadomość została przyjęta, postaramy się odpowiedzieć w
+            najbliższym czasie. Dzięki!
           </ModalBody>
         </Modal>
       </div>

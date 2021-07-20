@@ -6,6 +6,7 @@ import { checkIsSomethingInInput } from "../../utils/checkIsSomethingInInput";
 import {
   isGoodEmail,
   isGoodFullName,
+  isGoodMessage,
   isGoodPhoneNumber
 } from "../../utils/validation";
 import Captcha from "../Captcha/Captcha";
@@ -33,10 +34,12 @@ const UserForm: React.FC<IProps> = ({ checkFormInUse, checkIsComplete }) => {
   const [isValidetedFullName, setIsValidetedFullName] = useState(false);
   const [isValidetedEmail, setIsValidetedEmail] = useState(false);
   const [isValidetedPhone, setIsValidetedPhone] = useState(false);
+  const [isValidetedMessage, setIsValidetedMessage] = useState(false);
 
   const fullNameInputRef = useRef<HTMLHeadingElement>(null);
   const emailInputRef = useRef<HTMLHeadingElement>(null);
   const phoneInputRef = useRef<HTMLHeadingElement>(null);
+  const messageInputRef = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
     if (checkIsSomethingInInput(userForm)) {
@@ -51,9 +54,10 @@ const UserForm: React.FC<IProps> = ({ checkFormInUse, checkIsComplete }) => {
     const valFullName = isGoodFullName(userForm.fullName);
     const valEmail = isGoodEmail(userForm.email);
     const valPhone = isGoodPhoneNumber(userForm.phone);
+    const valMessage = isGoodMessage(userForm.message);
     setIsSubmited(true);
 
-    if (valFullName && valEmail && valPhone) {
+    if (valFullName && valEmail && valPhone && valMessage) {
       setUserForm(emptyForm);
       checkIsComplete(true);
       checkFormInUse(false);
@@ -63,6 +67,7 @@ const UserForm: React.FC<IProps> = ({ checkFormInUse, checkIsComplete }) => {
     setIsValidetedFullName(valFullName);
     setIsValidetedEmail(valEmail);
     setIsValidetedPhone(valPhone);
+    setIsValidetedMessage(valMessage);
   };
 
   const handleOnChange = (e: InputChangeEvent<string>) => {
@@ -104,7 +109,7 @@ const UserForm: React.FC<IProps> = ({ checkFormInUse, checkIsComplete }) => {
             label="Telefon"
           />
         </StyledTextFieldWrapper>
-        <StyledTextFieldWrapper>
+        <StyledTextFieldWrapper ref={messageInputRef}>
           <StyledTextField
             maxLength={500}
             multiline
@@ -133,6 +138,13 @@ const UserForm: React.FC<IProps> = ({ checkFormInUse, checkIsComplete }) => {
         {(props) => (
           <Tooltip id="overlay-example" {...props}>
             Tylko cyfry
+          </Tooltip>
+        )}
+      </Overlay>
+      <Overlay target={messageInputRef} show={!isValidetedMessage && isSubmited} placement="left">
+        {(props) => (
+          <Tooltip id="overlay-example" {...props}>
+            Napisz coś więcej &#128522;
           </Tooltip>
         )}
       </Overlay>

@@ -3,8 +3,8 @@ import React, { useState } from "react";
 import { Button, Image } from "react-bootstrap";
 import SqadImage from "../../design/images/dino.png";
 import { getRandomRotate } from "../../utils/getRandomRotete";
-import { ButtonContainer, ImageContainer } from "../style";
-import { UserControlContainer } from "./style";
+import { ButtonContainer } from "../style";
+import { DinoImageContainer, UserControlContainer } from "./style";
 
 interface IProps {
   handleSubmitButton: () => void;
@@ -45,7 +45,7 @@ const Captcha: React.FC<IProps> = ({ handleSubmitButton }) => {
 
   return (
     <div>
-      <ImageContainer>
+      <DinoImageContainer>
         <h4>Aby wysłać ustaw odpowiednio obrazek</h4>
         <Image
           src={SqadImage}
@@ -58,7 +58,7 @@ const Captcha: React.FC<IProps> = ({ handleSubmitButton }) => {
             marginBottom: "20px",
           }}
         />
-      </ImageContainer>
+      </DinoImageContainer>
       <UserControlContainer>
         <Button
           variant="outline-info"
