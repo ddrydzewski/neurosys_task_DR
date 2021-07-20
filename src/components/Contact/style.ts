@@ -11,11 +11,14 @@ export const OffcanvasTitleStyled = styled(OffcanvasTitle)`
 `;
 
 export const ContactContainer = styled.div`
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(255, 255, 255, 0.90);
   font-size: 25px;
   font-weight: bold;
   cursor: pointer;
-  margin: auto;
+  font-family: Myfont, Arial, sans-serif;
+  &:hover{
+    color: ${colors.bonusColor}
+  }
 `;
 
 export const CompleteFormContainer = styled.div`

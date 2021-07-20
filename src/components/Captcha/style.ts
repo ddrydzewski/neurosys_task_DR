@@ -1,8 +1,11 @@
 import styled from "styled-components";
+import { colors } from "../../design/colorsStyles/colorStyles";
 
 export const UserControlContainer = styled.div`
-  width: 50%;
-  text-align: center;
+  color: ${colors.thirdColor};
+  align-items: center;
+  justify-content: center;
   margin: auto;
+  display: flex;
   margin-bottom: 10px;
 `;

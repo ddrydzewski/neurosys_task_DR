@@ -1,9 +1,13 @@
 import { InputChangeEvent } from "precise-ui/dist/es6";
-import React, { useEffect, useState } from "react";
-import { Form } from "react-bootstrap";
+import React, { useEffect, useRef, useState } from "react";
+import { Form, Overlay, Tooltip } from "react-bootstrap";
 import { IUserForm } from "../../types/IUserForm";
 import { checkIsSomethingInInput } from "../../utils/checkIsSomethingInInput";
-import { checkMinLengthInput } from "../../utils/checkMinLengthInput";
+import {
+  isGoodEmail,
+  isGoodFullName,
+  isGoodPhoneNumber
+} from "../../utils/validation";
 import Captcha from "../Captcha/Captcha";
 import {
   FormContainer,
@@ -25,6 +29,14 @@ const emptyForm: IUserForm = {
 
 const UserForm: React.FC<IProps> = ({ checkFormInUse, checkIsComplete }) => {
   const [userForm, setUserForm] = useState<IUserForm>(emptyForm);
+  const [isSubmited, setIsSubmited] = useState(false);
+  const [isValidetedFullName, setIsValidetedFullName] = useState(false);
+  const [isValidetedEmail, setIsValidetedEmail] = useState(false);
+  const [isValidetedPhone, setIsValidetedPhone] = useState(false);
+
+  const fullNameInputRef = useRef<HTMLHeadingElement>(null);
+  const emailInputRef = useRef<HTMLHeadingElement>(null);
+  const phoneInputRef = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
     if (checkIsSomethingInInput(userForm)) {
@@ -32,22 +44,28 @@ const UserForm: React.FC<IProps> = ({ checkFormInUse, checkIsComplete }) => {
     } else {
       checkFormInUse(false);
     }
+    setIsSubmited(false);
   }, [checkFormInUse, userForm]);
 
   const handleSubmitButton = () => {
-    if (checkMinLengthInput(userForm)) {
+    const valFullName = isGoodFullName(userForm.fullName);
+    const valEmail = isGoodEmail(userForm.email);
+    const valPhone = isGoodPhoneNumber(userForm.phone);
+    setIsSubmited(true);
+
+    if (valFullName && valEmail && valPhone) {
       setUserForm(emptyForm);
       checkIsComplete(true);
       checkFormInUse(false);
     } else {
-      alert("Nie wszystkie pola są uzupełnione");
+      alert("Sprawdź pola");
     }
+    setIsValidetedFullName(valFullName);
+    setIsValidetedEmail(valEmail);
+    setIsValidetedPhone(valPhone);
   };
 
   const handleOnChange = (e: InputChangeEvent<string>) => {
-    //
-    // Add Validation IMPORTANT //
-    //
     const target = e.value;
     setUserForm({ ...userForm, [e.originalEvent?.target.name]: target });
   };
@@ -55,7 +73,7 @@ const UserForm: React.FC<IProps> = ({ checkFormInUse, checkIsComplete }) => {
   return (
     <FormContainer>
       <Form>
-        <StyledTextFieldWrapper>
+        <StyledTextFieldWrapper ref={fullNameInputRef}>
           <StyledTextField
             maxLength={40}
             type="text"
@@ -66,7 +84,7 @@ const UserForm: React.FC<IProps> = ({ checkFormInUse, checkIsComplete }) => {
             label="Imię i Nazwisko"
           />
         </StyledTextFieldWrapper>
-        <StyledTextFieldWrapper>
+        <StyledTextFieldWrapper ref={emailInputRef}>
           <StyledTextField
             maxLength={64}
             type="email"
@@ -76,7 +94,7 @@ const UserForm: React.FC<IProps> = ({ checkFormInUse, checkIsComplete }) => {
             label="Email"
           />
         </StyledTextFieldWrapper>
-        <StyledTextFieldWrapper>
+        <StyledTextFieldWrapper ref={phoneInputRef}>
           <StyledTextField
             maxLength={14}
             type="tel"
@@ -97,6 +115,27 @@ const UserForm: React.FC<IProps> = ({ checkFormInUse, checkIsComplete }) => {
             label="Wiadomość"
           />
         </StyledTextFieldWrapper>
+        <Overlay target={fullNameInputRef} show={!isValidetedFullName && isSubmited} placement="left">
+        {(props) => (
+          <Tooltip id="overlay-example" {...props}>
+            Tylko litery
+          </Tooltip>
+        )}
+      </Overlay>
+      <Overlay target={emailInputRef} show={!isValidetedEmail && isSubmited} placement="left">
+        {(props) => (
+          <Tooltip id="overlay-example" {...props}>
+            Sprawdź poprawność Emaila
+          </Tooltip>
+        )}
+      </Overlay>
+      <Overlay target={phoneInputRef} show={!isValidetedPhone && isSubmited} placement="left">
+        {(props) => (
+          <Tooltip id="overlay-example" {...props}>
+            Tylko cyfry
+          </Tooltip>
+        )}
+      </Overlay>
         <Captcha handleSubmitButton={handleSubmitButton} />
       </Form>
     </FormContainer>
@@ -104,3 +143,11 @@ const UserForm: React.FC<IProps> = ({ checkFormInUse, checkIsComplete }) => {
 };
 
 export default UserForm;
+
+
+
+// {/* <Flyout
+// open={!isValidetedPhone && isSubmited}
+// position={"left"}
+// content="Tylko Numery"
+// /> */}

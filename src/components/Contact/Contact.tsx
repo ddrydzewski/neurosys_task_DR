@@ -62,7 +62,7 @@ const Contact = () => {
       >
         <Offcanvas.Header>
           <OffcanvasTitleStyled>
-            Masz pytania ? Napisz &#128526;
+            Menadżer wszystko czyta &#128526;
           </OffcanvasTitleStyled>
         </Offcanvas.Header>
         <UserForm
