@@ -1,10 +1,8 @@
 import { Modal, ModalBody, ModalHeader } from "precise-ui/dist/es6";
 import React, { useState } from "react";
-import { Button } from "react-bootstrap";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import { ButtonContainer } from "../style";
 import UserForm from "../UserForm/UserForm";
-import { OffcanvasTitleStyled } from "./style";
+import { ContactContainer, OffcanvasTitleStyled } from "./style";
 
 const Contact = () => {
   const [show, setShow] = useState(false);
@@ -44,11 +42,9 @@ const Contact = () => {
 
   return (
     <>
-      <ButtonContainer>
-        <Button variant="primary" onClick={handleShow}>
-          Kontakt
-        </Button>
-      </ButtonContainer>
+      <ContactContainer>
+        <div onClick={handleShow}>Kontakt</div>
+      </ContactContainer>
       <div onClick={endUserForm}>
         <Modal open={isCompleteForm}>
           <ModalHeader title="Dziękujemy za wiadomość" label="&#128526;" />
